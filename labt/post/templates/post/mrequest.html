@@ -1,0 +1,26 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+{% load static %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}"> -->
+<!-- <link rel="stylesheet" href=""> -->
+<div class="container text-center">
+  <h1>Post Requests</h1>
+</div>
+<div class="container">
+	{% for row in postrow %}
+
+	<div class="panel panel-default">
+	  <header class="panel-heading">
+	    <h4>Request for {{row.0}}</h4>
+	  </header>
+	  <div class="panel-body">
+	    <p><a href="{% url 'post:approve' row.1 %}">Approve</a> the post request</p>
+	  </div>
+	</div>
+
+	{% endfor %}
+</div>
+
+{% endblock %}

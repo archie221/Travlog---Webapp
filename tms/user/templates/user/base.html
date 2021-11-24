@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    {% if log_in %}
+      <title>{{first_name}}</title>
+    {% else %}
+      <title>Travlog</title>
+    {% endif %}
+    <link rel="shortcut icon" href="{% static 'base/t4.png' %}"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  
+</head>
+{% if log_in %}
+  <body style=" background-color: white;">
+  {% else %}
+    <!-- <body style="background-image: url('{% static 'base/back.jpeg' %}');"> -->
+  {% endif %}
+
+<nav class="navbar navbar-inverse" style="background-color: #111; z-index: 1000;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <div class="navbar-header"><img src="{% static 'base/t4.png' %}" alt="Title" height="49"></div>
+      <a class="navbar-brand" style="color: #B5FF33; font-size: 2.5rem; " href="{% url 'user:login' %}">ravlog</a>
+      <img src="{% static 'base/t2.png' %}" alt="Books" height="50" style="border-radius: 50%">
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      {% if log_in %}
+        <ul class="nav navbar-nav">
+          <li><a style="color: #B5FF33;font-size: 1.5rem;" href="{% url 'travel:home' %}"><i class="fa fa-home icon fa-lg" aria-hidden="true"></i> {{first_name}}</a></li>
+          {% if note_count > 0 %}
+          <li><a style="color: #B5FF33;font-size: 1.5rem;" href="{% url 'notif:notify' %}"><i class="fa fa-envelope icon fa-lg" aria-hidden="true"></i> <span class="badge">{{note_count}}</span>Notifications</a></li>
+            {% else %}
+              <li><a style="color: #B5FF33;font-size: 1.5rem;" href="{% url 'notif:notify' %}"><i class="fa fa-envelope icon fa-lg" aria-hidden="true"></i> Notifications</a></li>
+            {% endif %} 
+          
+        </ul>
+      {% endif %}
+      <ul class="nav navbar-nav navbar-right">
+        {% if log_in %}
+          <li><a style="color: #B5FF33;font-size: 1.5rem;" href="{% url 'user:profile' %}"><i class="fa fa-user-circle-o icon fa-lg" aria-hidden="true"></i> Profile</a></li>
+          <li><a style="color: #B5FF33;font-size: 1.5rem;" href="{% url 'user:logout' %}">Logout <i class="fa fa-sign-out icon fa-lg" aria-hidden="true"></i></a></li>
+        {% else %}
+          <li><a style="color: #B5FF33; font-size: 1.5rem;" href="{% url 'user:login' %}"><i class="fa fa-sign-in icon fa-lg" aria-hidden="true"></i> Login</a></li>
+          <li><a style="color: #B5FF33; font-size: 1.5rem;" href="{% url 'user:signup' %}"><i class="fa fa-user-plus icon fa-lg" aria-hidden="true"></i> Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+    <!-- <main role="main" class="container">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+         
+    </main> -->
+
+    <div class="row justify-content-center">
+      <div class="col-md-10 ">
+        {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} container">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          
+      </div>
+      
+    </div>
+    {% block content %}{% endblock %}
+
+    <br>
+    <br>
+    <br>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% block javascript %}
+    {% endblock javascript %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+{% load static %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}"> -->
+<!-- <link rel="stylesheet" href=""> -->
+<div class="container text-center">
+  <h1>Posts</h1>
+</div>
+<div class="container">
+	{% for row in rows %}
+
+	<div class="panel panel-default">
+	  <header class="panel-heading">
+	    <h4>{{row.2}}</h4>
+	  </header>
+	  <div class="panel-body">
+	    <p>{{row.3}}</p>
+	    <p><a href="{% url 'post:join' row.0 %}">View</a> the join request</p>
+	  </div>
+	</div>
+
+	{% endfor %}
+</div>
+
+{% endblock %}

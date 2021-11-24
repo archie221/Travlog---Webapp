@@ -1,0 +1,641 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<!-- <div class="container-fluid"> -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<!-- Brand -->
+
+<!-- Header -->
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+	style="min-height: 600px; background-image: url(../../../static/base/top.png); background-size: cover; background-position: center bottom;">
+	<div class="container-fluid d-flex align-items-center">
+		<div class="row">
+			<div class="col-lg-7 col-md-10">
+				<h1 class="display-2 text-white">Lets Update Your Travel Diary for {{title}}</h1>
+				<!-- <div  style="background-color: black;">
+                    <p class="text-white mt-0 mb-5" style="font-size: 2rem; font-weight: bolder;">This is your profile page. You can Update your 
+                        Profile as you wish. You can also see your trip statistics
+                    </p>
+                    </div> -->
+				<!-- {# <a href="#!" class="btn btn-info">Edit profile</a>#} -->
+			</div>
+
+		</div>
+	</div>
+	<!-- Mask -->
+	<!-- <span class="mask bg-gradient-default opacity-8"></span> -->
+	<!-- Header container -->
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+	<div class="row card bg-secondary shadow">
+		<!-- <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+				<div class="card card-profile shadow">
+					<div class="card-body pt-0 pt-md-4">
+						<div class="text-center">
+							<h3>
+								<span class="font-weight-light">, 27</span>
+							</h3>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		<!-- <div class="col-12 order-xl-1">
+			<div class="card bg-secondary shadow"> -->
+		<div class="card-body">
+			<form class="" method="POST" action="{% url 'travel:updtrip' tripid %}">
+				{% csrf_token %}
+				<div class="card-header bg-white border-0">
+					<div class="row align-items-center">
+						<div class="col-8">
+							<h3 class="mb-0">Trip Info</h3>
+						</div>
+						<div class="col-4 text-right">
+							<button type="submit" class="btn btn-sm btn-primary">Update
+							</button>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="pl-lg-4">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group focused">
+								<label class="form-control-label" for="input-title">Title</label>
+								<input type="text" id="input-title" class="form-control form-control-alternative"
+									placeholder="Title" value="{{title}}" name="title">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group focused">
+								<label class="form-control-label" for="input-description">Description</label>
+								<input type="text" id="input-description" class="form-control form-control-alternative"
+									placeholder="Description" value="{{description}}" name="description">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group focused">
+								<label class="form-control-label" for="input-start-date">Start Date</label>
+								<input type="date" id="input-start-date" class="form-control form-control-alternative"
+									value="{{start_date}}" name="start_date">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group focused">
+								<label class="form-control-label" for="input-end-date">End Date</label>
+								<input type="date" id="input-end-date" class="form-control form-control-alternative"
+									value="{{end_date}}" name="end_date">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-drive-link">Drive Link</label>
+								<input type="text" id="input-drive-link" class="form-control form-control-alternative"
+									placeholder="Drive-link" value="{{drive_link}}" name="drive_link">
+							</div>
+						</div>
+					</div>
+					<!--  <div class="row">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-gender">Gender</label>
+											<input type="text" id="input-gender" class="form-control form-control-alternative" value="{{gender}}" name="gender">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-dob">Date of Birth</label>
+											<input type="text" id="input-dob" class="form-control form-control-alternative" value="{{dob}}" disabled>
+										</div>
+									</div>
+								</div> -->
+				</div>
+				<!-- <hr class="my-4"> -->
+				<!-- Address -->
+				<!-- <h6 class="heading-small text-muted mb-4">Contact information</h6>
+							<div class="pl-lg-4">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-address">Address</label>
+											<input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="{{address}}" type="text" name = "address">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-mobile">Mobile</label>
+											<input type="text" id="input-mobile" class="form-control form-control-alternative" placeholder="Mobile No." value="{{mobile}}" name = "mobile">
+										</div>
+									</div>
+								</div> -->
+		</div>
+		</form>
+	</div>
+
+	<div class="col-xl-12 order-xl-1">
+		<div class="card bg-secondary shadow">
+			<div class="card-body">
+				<h3 class="mb-0">Location Booking</h3>
+				<form class="" method="POST" action="{% url 'travel:updlocation' tripid %}">
+					{% csrf_token %}
+					<div class="card">
+						<div class="card-body">
+							<div class="pl-lg-4">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-title">Location Name</label>
+											<select type="text" id="input-title"
+												class="form-control form-control-alternative" name="location_id">
+												{% for i in locations %}
+												<option value="{{i.0}}">{{i.1}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="outer">
+						<button type="submit" class="btn btn-primary inner"> Add </button>
+					</div>
+				</form>
+				{% for i in locationlist %}
+				<br>
+				<form class="" method="POST" action="{% url 'travel:dellocation' tripid i.0 %}">
+					{% csrf_token %}
+					<div class="card">
+						<div class="card-body">
+							<h5 class="text-muted mb-4 card-title">Location {{i.2}}</h5>
+							<div class="pl-lg-4">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-title">Location Name</label>
+											<input type="text" id="input-title"
+												class="form-control form-control-alternative" name="name" value={{i.1}}
+												disabled>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="outer">
+							<button type="submit" class="btn btn-danger inner"> Delete </button>
+						</div>
+					</div>
+				</form>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xl-12 order-xl-1">
+		<div class="card bg-secondary shadow">
+			<div class="card-body">
+				<h3 class="mb-0">Transport Booking</h3>
+				<form class="" method="POST" action="{% url 'travel:updtransport' tripid %}"
+					enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="card">
+						<div class="card-body">
+							<div class="pl-lg-4">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-title">Type</label>
+											<select type="text" id="input-title"
+												class="form-control form-control-alternative" name="type">
+												<option>Train</option>
+												<option>Flight</option>
+												<option>Bus</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-cost">Name</label>
+											<input type="text" id="input-cost"
+												class="form-control form-control-alternative" name="trans_name">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-start-date">Departure</label>
+											<input type="datetime-local" id="input-start-date"
+												class="form-control form-control-alternative" name="departure"
+												required="required">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-end-date">Arrival</label>
+											<input type="datetime-local" id="input-end-date"
+												class="form-control form-control-alternative" name="arrival"
+												required="required">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label class="form-control-label" for="input-drive-link">From
+												Location</label>
+											<input type="text" id="input-drive-link"
+												class="form-control form-control-alternative" name="from" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label class="form-control-label" for="input-drive-link">To Location</label>
+											<input type="text" id="input-drive-link"
+												class="form-control form-control-alternative" name="to" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-cost">Cost</label>
+											<input type="number" id="input-cost"
+												class="form-control form-control-alternative" name="cost" value="0">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label for="document">Ticket Image</label>
+											<input type="file" id="document" name="document_image" accept="image/*">
+
+										</div>
+									</div>
+									<!-- <div class="col-lg-6">
+													<div class="form-group focused">
+														<label for="document">Booking Doc</label>
+														<input type="file" id="document" name="document_booking" accept="image/*">
+														
+													</div>
+												</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="outer">
+						<button type="submit" class="btn btn-primary inner"> Add </button>
+					</div>
+				</form>
+				{% for i in transportlist %}
+				<br>
+				<form class="" method="POST" action="{% url 'travel:deltransport' i.0 %}">
+					{% csrf_token %}
+					<div class="card">
+						<div class="card-body">
+							<h5 class="text-muted mb-4 card-title">Transport {{i.9}}</h5>
+							<div class="pl-lg-4">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-title">Type</label>
+											<input type="text" id="input-title"
+												class="form-control form-control-alternative" name="type" value={{i.1}}
+												disabled>
+										</div>
+
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-cost">Name</label>
+											<input type="text" id="input-cost"
+												class="form-control form-control-alternative" name="trans_name"
+												value={{i.2}} disabled>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-end-date">Departure</label>
+											<input type="text" id="input-end-date"
+												class="form-control form-control-alternative" name="end_date"
+												required="required" value="{{i.3}}" disabled>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-end-date">Arrival</label>
+											<input type="text" id="input-end-date"
+												class="form-control form-control-alternative" name="end_date"
+												required="required" value="{{i.4}}" disabled>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label class="form-control-label" for="input-drive-link">From
+												Location</label>
+											<input type="text" id="input-drive-link"
+												class="form-control form-control-alternative" name="from" value={{i.5}}
+												disabled>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label class="form-control-label" for="input-drive-link">To Location</label>
+											<input type="text" id="input-drive-link"
+												class="form-control form-control-alternative" name="to" value={{i.6}}
+												disabled>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-cost">Cost</label>
+											<input type="number" id="input-cost"
+												class="form-control form-control-alternative" name="cost" value={{i.7}}
+												disabled>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<a href="{{i.8}}" class="form-control-label" download>Download Ticket</a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+
+			<div class="outer">
+				<button type="submit" class="btn btn-danger inner"> Delete </button>
+			</div>
+			</form>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+<div class="col-xl-12 order-xl-1">
+	<div class="card bg-secondary shadow">
+		<div class="card-body">
+			<h3 class="mb-0">Hotel Booking</h3>
+			<form class="" method="POST" action="{% url 'travel:updhotel' tripid %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="card">
+					<div class="card-body">
+						<div class="pl-lg-4">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-title">Hotel Name</label>
+										<select type="text" id="input-title"
+											class="form-control form-control-alternative" name="hotelid">
+											{% for i in hotels %}
+											<option value="{{i.0}}">{{i.1}}, rated={{i.2}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-cost">Cost</label>
+										<input type="number" id="input-cost"
+											class="form-control form-control-alternative" name="cost" value="0">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-start-date">Check In</label>
+										<input type="datetime-local" id="input-start-date"
+											class="form-control form-control-alternative" name="checkin"
+											required="required">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-end-date">Check Out</label>
+										<input type="datetime-local" id="input-end-date"
+											class="form-control form-control-alternative" name="checkout"
+											required="required">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label for="document">Idcard Image</label>
+										<input type="file" id="document" name="document_idcard" accept="image/*">
+
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label for="document">Booking Document Image</label>
+										<input type="file" id="document" name="document_bookdoc" accept="image/*">
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="outer">
+						<button type="submit" class="btn btn-primary inner"> Add </button>
+					</div>
+			</form>
+			{% for i in hotellist %}
+			<br>
+			<form class="" method="POST" action="{% url 'travel:delhotel' i.0 %}">
+				{% csrf_token %}
+				<div class="card">
+					<div class="card-body">
+						<h5 class="text-muted mb-4 card-title">Hotel {{i.7}}</h5>
+						<div class="pl-lg-4">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-title">Hotel Name</label>
+										<input type="text" id="input-title"
+											class="form-control form-control-alternative" name="name" value={{i.1}}
+											disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-cost">Cost</label>
+										<input type="number" id="input-cost"
+											class="form-control form-control-alternative" name="cost" value={{i.2}}
+											disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-end-date">Check In</label>
+										<input type="text" id="input-end-date"
+											class="form-control form-control-alternative" name="end_date"
+											required="required" value="{{i.3}}" disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-end-date">Checkout</label>
+										<input type="text" id="input-end-date"
+											class="form-control form-control-alternative" name="end_date"
+											required="required" value="{{i.4}}" disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<a href="{{i.6}}" class="form-control-label" download>Download Idcard</a>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<a href="{{i.5}}" class="form-control-label" download>Download Booking Doc</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="outer">
+						<button type="submit" class="btn btn-danger inner"> Delete </button>
+					</div>
+			</form>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+<div class="col-xl-12 order-xl-1">
+	<div class="card bg-secondary shadow">
+		<div class="card-body">
+			<h3 class="mb-0">Itinerary Booking</h3>
+			<form class="" method="POST" action="{% url 'travel:upditinerary' tripid %}">
+				{% csrf_token %}
+				<div class="card">
+					<div class="card-body">
+						<div class="pl-lg-4">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-title">Place</label>
+										<select type="text" id="input-title"
+											class="form-control form-control-alternative" name="itineraryid">
+											<option>Custom</option>
+											{% for i in itinerary %}
+											<option value="{{i.0}}">{{i.1}}, rated={{i.2}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-cost">Title</label>
+										<input type="text" id="input-cost" class="form-control form-control-alternative"
+											name="title">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-cost">Ticket Price</label>
+										<input type="number" id="input-cost"
+											class="form-control form-control-alternative" name="ticket_price" value="0"> 
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-start-date">Visit Time</label>
+										<input type="datetime-local" id="input-start-date"
+											class="form-control form-control-alternative" name="visit_time"
+											required="required">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-address">Address</label>
+										<input type="text" id="input-address"
+											class="form-control form-control-alternative" name="address">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="outer">
+						<button type="submit" class="btn btn-primary inner">Add</button>
+					</div>
+			</form>
+			{% for i in itinerarylist %}
+			<br>
+			<form class="" method="POST" action="{% url 'travel:delitinerary' i.0 %}">
+				{% csrf_token %}
+				<div class="card">
+					<div class="card-body">
+						<h5 class="text-muted mb-4 card-title">Itinerary {{i.6}}</h5>
+						<div class="pl-lg-4">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-title">Place</label>
+										<input type="text" id="input-title"
+											class="form-control form-control-alternative" name="name" value={{i.1}}
+											disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-cost">Title</label>
+										<input type="text" id="input-cost" class="form-control form-control-alternative"
+											name="title" value={{i.2}} disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-cost">Ticket Price</label>
+										<input type="number" id="input-cost"
+											class="form-control form-control-alternative" name="ticket_price"
+											value={{i.3}} disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-end-date">Visit Time</label>
+										<input type="text" id="input-end-date"
+											class="form-control form-control-alternative" name="end_date"
+											required="required" value="{{i.4}}" disabled>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group focused">
+										<label class="form-control-label" for="input-address">Address</label>
+										<input type="text" id="input-address"
+											class="form-control form-control-alternative" name="address" value={{i.5}}
+											disabled>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="outer">
+						<button type="submit" class="btn btn-danger inner"> Delete </button>
+					</div>
+			</form>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+<!-- </div>
+</div> -->
+
+{% endblock %}

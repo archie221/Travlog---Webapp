@@ -1,0 +1,65 @@
+use djangodatabase;
+
+DROP TABLE IF EXISTS mrequest;
+DROP TABLE IF EXISTS request;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS customer;
+
+CREATE TABLE customer(
+    customer_id INT AUTO_INCREMENT,
+    first_name VARCHAR(30) not null,
+    last_name VARCHAR(30),
+    gender VARCHAR(10) CHECK(gender IN ('Male', 'Female', 'Other')),
+    address VARCHAR(100),
+    mobile VARCHAR(10) not null CHECK(mobile NOT LIKE '%[^0-9]%'),
+    emailid VARCHAR(50) not null CHECK(emailid LIKE '%_@_%._%'),
+    password VARCHAR(30) not null,
+    dob DATE,
+    moderator INT,
+    CHECK (moderator in (0,1)),
+    PRIMARY KEY(customer_id)
+);
+
+INSERT INTO customer(first_name, last_name, gender, address, mobile, emailid, password, dob, moderator)
+VALUES ("Jake", "Peralta", "Male", "19/B Beach House, Mumbai", "1234567890", "jake@gmail.com", "password", "2000-06-15", "1");
+
+
+INSERT INTO customer(first_name, last_name, gender, address, mobile, emailid, password, dob, moderator)
+VALUES ("Robin", "Hood", "Male", "23/B Rajiv Chowk, NCR Delhi", "9876543210", "robin@gmail.com", "password", "2014-06-15", "0");
+
+
+INSERT INTO customer(first_name, last_name, gender, address, mobile, emailid, password, dob, moderator)
+VALUES ("Sakshi", "Vaidya", "Female", "21,Jodhpur Market, Jodhpur", "1456327890", "sakshi@gmail.com", "password", "2007-06-15", "0");
+
+
+CREATE TABLE post(
+    post_id INT AUTO_INCREMENT,
+    customer_id INT,
+    title VARCHAR(30) not null,
+    description VARCHAR(5000) not null,
+    maxlimit INT DEFAULT 1,
+    attendance INT,
+    status INT DEFAULT 0,
+    PRIMARY KEY(post_id),
+    FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE
+);
+
+CREATE TABLE request(
+    request_id INT AUTO_INCREMENT,
+    host_id INT,
+    customer_id INT,
+    description VARCHAR(5000) not null,
+    post_id INT,
+    PRIMARY KEY(request_id),
+    FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY(host_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY(post_id) REFERENCES post(post_id) ON DELETE CASCADE
+);
+
+CREATE TABLE mrequest(
+    mrequest_id INT AUTO_INCREMENT,
+    post_id INT,
+    status INT DEFAULT 0,
+    PRIMARY KEY(mrequest_id),
+    FOREIGN KEY(post_id) REFERENCES post(post_id) ON DELETE CASCADE
+);

@@ -1,0 +1,72 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+{% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <!-- <form class="" method="POST" action="{% url 'user:login' %}" >
+        {% csrf_token %}
+       
+        <div class="bg-grey-lighter min-h-screen flex flex-col">
+            <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+                <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                    <h1 class="mb-8 text-3xl text-center">Sign In</h1>
+
+                    <input
+                            type="email"
+                            class="block border border-grey-light w-full p-3 rounded mb-4"
+                            name="email"
+                            placeholder="Email" />
+                    
+                    <input
+                            type="password"
+                            class="block border border-grey-light w-full p-3 rounded mb-4"
+                            name="password"
+                            placeholder="Password" />
+                    <button
+                            type="submit"
+                            class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded "
+                    >LogIn</button>
+
+                </div>
+
+                <div class="text-grey-dark mt-6">
+                    Don't have an account?
+                    <a class="no-underline border-b border-blue" href="{%url 'user:signup' %}">
+                        <span class="text-blue">Sign Up</span>
+                    </a>.
+                </div>
+            </div>
+        </div>
+    </form> -->
+    <div class="container" >
+    <div class="signup-form" style="margin:auto">
+        <form class="form-horizontal" method="POST" action="{% url 'user:login' %}" >
+            {% csrf_token %}              
+            <div class="row">
+                <div class="col-8 offset-4">
+                    <h2>Login</h2>
+                </div>	
+              </div>	
+            <div class="form-group row">
+                <label class="col-form-label col-4">Email Address</label>
+                <div class="col-8">
+                    <input type="email" class="form-control" name="email" required="required" placeholder="Email">
+                </div>        	
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-4">Password</label>
+                <div class="col-8">
+                    <input type="password" class="form-control" name="password" required="required"  placeholder="Password">
+                </div>        	
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </div>  
+            </div>		      
+        </form>
+        <div class="text-center" style="color:white;">Not yet Registered? <a href="{%url 'user:signup' %}">Register here</a></div>
+    </div>
+</div>
+{% endblock %}
